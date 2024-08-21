@@ -46,21 +46,29 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
    Set-ExecutionPolicy Bypass -Scope Process -Force
 
    # Create a temporary directory
-   $tempDir = New-Item -ItemType Directory -Path "$env:TEMP\SOC-Toolbelt"
+   $tempDir = "$env:TEMP\SOC-Toolbelt"
 
-   # Download each script to the temporary directory
-   $scripts = @(
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Network%20Connection%20Analysis.ps1",
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Windows%20Event%20Logs%20Analysis.ps1",
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/User%20Login%20Analysis.ps1",
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Security%20Event%20Log%20Analysis.ps1",
-       "https://github.com/simon-im-security/SOC-Toolbelt/blob/main/Process%20Checker%20Analysis.ps1"
-   )
+   # Check if the directory exists; if so, remove it and create a new one
+   if (Test-Path -Path $tempDir) {
+       Remove-Item -Recurse -Force -Path $tempDir
+   }
+
+   $tempDir = New-Item -ItemType Directory -Path $tempDir
+
+   $logFile = "$tempDir\execution_log.txt"
+   $totalScripts = $scripts.Count
+   $currentScript = 0
 
    foreach ($script in $scripts) {
        $currentScript++
-       $scriptName = [System.IO.Path]::GetFileName($script)
+       
+       # Decode URL to get the proper filename
+       $scriptUri = New-Object System.Uri($script)
+       $scriptName = [System.IO.Path]::GetFileName($scriptUri.LocalPath)
        $scriptPath = "$tempDir\$scriptName"
+
+       # Download the script
+       Invoke-WebRequest -Uri $script -OutFile $scriptPath
 
        # Update the progress bar
        Write-Progress -Activity "Running SOC Toolbelt Scripts" -Status "Running $scriptName" -PercentComplete (($currentScript / $totalScripts) * 100)
@@ -77,7 +85,7 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
            $errorMsg = $_.Exception.Message
            $logEntry = "Error running ${scriptName}: ${errorMsg} at $(Get-Date)"
            Add-Content -Path $logFile -Value $logEntry
-           Write-Output "Error encountered with $scriptName: $errorMsg"
+           Write-Output "Error encountered with ${scriptName}: ${errorMsg}"
            continue
        }
    }
@@ -87,3 +95,8 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
 
    # Final real-time update
    Write-Output "All scripts completed at $(Get-Date)"
+
+3. **Execution Notes:**
+The script temporarily bypasses the execution policy for the session, allowing the downloaded scripts to run.
+After execution, all temporary files are cleaned up automatically.
+Always review scripts before executing them to ensure they meet your security standards.
