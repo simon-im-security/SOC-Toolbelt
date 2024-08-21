@@ -1,4 +1,4 @@
-# Welcome to the SOC Toolbelt
+# Security Operations Centre (SOC) Toolbelt
 
 ## Introduction
 Welcome to the SOC Toolbelt, a powerful suite of tools designed to assist in the identification, analysis, and response to security incidents. This toolbelt contains five essential scripts that help security analysts effectively manage and mitigate potential threats within a Windows environment.
