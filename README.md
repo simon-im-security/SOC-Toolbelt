@@ -9,8 +9,6 @@ Welcome to the SOC Toolbelt, a powerful suite of tools designed specifically to 
 - **Empowers Decision-Making:** Rather than automating responses, the toolbelt presents comprehensive data that enables analysts to make informed decisions based on the complete context.
 - **Enhanced Communication:** The visibility of this tool to end users supports better communication between security teams and other stakeholders, facilitating clearer explanations and more effective incident response.
 
-> **Note:** This toolbelt is designed for **Windows 11** only. A macOS version is coming soon.
-
 ## Included Tools
 
 ### 1. **Security Event Log Analysis**
@@ -65,6 +63,14 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
    $totalScripts = $scripts.Count
    $currentScript = 0
 
+   $scripts = @(
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Network%20Connection%20Analysis.ps1",
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Windows%20Event%20Logs%20Analysis.ps1",
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/User%20Login%20Analysis.ps1",
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Security%20Event%20Log%20Analysis.ps1",
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Process%20Checker%20Analysis.ps1"
+   )
+
    foreach ($script in $scripts) {
        $currentScript++
        
@@ -73,7 +79,7 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
        $scriptName = [System.IO.Path]::GetFileName($scriptUri.LocalPath)
        $scriptPath = "$tempDir\$scriptName"
 
-       # Download the script
+       # Download the script using the raw GitHub URL
        Invoke-WebRequest -Uri $script -OutFile $scriptPath
 
        # Update the progress bar
