@@ -3,6 +3,8 @@
 ## Introduction
 Welcome to the SOC Toolbelt, a powerful suite of tools designed to assist in the identification, analysis, and response to security incidents. This toolbelt contains five essential scripts that help security analysts effectively manage and mitigate potential threats within a Windows environment.
 
+> **Note:** This toolbelt is designed for **Windows 11** only. A macOS version is coming soon.
+
 ## Included Tools
 
 ### 1. **Security Event Log Analysis**
@@ -19,6 +21,12 @@ Welcome to the SOC Toolbelt, a powerful suite of tools designed to assist in the
 
 ### 5. **Process Checker Analysis**
    - Checks running processes for signs of malicious or suspicious behaviour.
+
+## Sample Output
+
+Here’s an example of the type of output you can expect from the SOC Toolbelt:
+
+![Sample Output](https://github.com/simon-im-security/SOC-Toolbelt/blob/main/sample.png?raw=true)
 
 ---
 
@@ -50,21 +58,32 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
    )
 
    foreach ($script in $scripts) {
-       $scriptName = [System.IO.Path]::GetFileName($script)
-       $destinationPath = "$tempDir\$scriptName"
-       Invoke-WebRequest -Uri $script -OutFile $destinationPath
-       Write-Output "Downloaded $scriptName"
-   }
-
-   # Execute each script sequentially
-   foreach ($script in $scripts) {
+       $currentScript++
        $scriptName = [System.IO.Path]::GetFileName($script)
        $scriptPath = "$tempDir\$scriptName"
-       Write-Output "Running $scriptName"
-       & $scriptPath
-       Write-Output "$scriptName completed"
+
+       # Update the progress bar
+       Write-Progress -Activity "Running SOC Toolbelt Scripts" -Status "Running $scriptName" -PercentComplete (($currentScript / $totalScripts) * 100)
+
+       # Real-time status update
+       Write-Output "Starting $scriptName at $(Get-Date)"
+       
+       try {
+           Add-Content -Path $logFile -Value "Running $scriptName at $(Get-Date)"
+           & $scriptPath -ErrorAction Stop -Verbose *>> $logFile
+           Add-Content -Path $logFile -Value "$scriptName completed at $(Get-Date)"
+           Write-Output "$scriptName completed at $(Get-Date)"
+       } catch {
+           $errorMsg = $_.Exception.Message
+           $logEntry = "Error running ${scriptName}: ${errorMsg} at $(Get-Date)"
+           Add-Content -Path $logFile -Value $logEntry
+           Write-Output "Error encountered with $scriptName: $errorMsg"
+           continue
+       }
    }
 
-   # Clean up temporary files
-   Remove-Item -Recurse -Force $tempDir
+   # Complete the progress bar
+   Write-Progress -Activity "Running SOC Toolbelt Scripts" -Status "Completed" -PercentComplete 100 -Completed
 
+   # Final real-time update
+   Write-Output "All scripts completed at $(Get-Date)"
