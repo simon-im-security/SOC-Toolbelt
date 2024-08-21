@@ -1,7 +1,13 @@
 # Security Operations Centre (SOC) Toolbelt
 
 ## Introduction
-Welcome to the SOC Toolbelt, a powerful suite of tools designed to assist in the identification, analysis, and response to security incidents. This toolbelt contains five essential scripts that help security analysts effectively manage and mitigate potential threats within a Windows environment.
+
+Welcome to the SOC Toolbelt, a powerful suite of tools designed specifically to assist in responding to security incidents. This toolbelt is ideal for security analysts who need a high-level view of potential threats, complementing existing Endpoint Detection and Response (EDR) tools like CrowdStrike Falcon. 
+
+### Advantages Over Traditional EDR Tools:
+- **High-Level View:** The SOC Toolbelt provides a broader perspective, allowing analysts to see the larger picture beyond what standard EDR tools might offer.
+- **Empowers Decision-Making:** Rather than automating responses, the toolbelt presents comprehensive data that enables analysts to make informed decisions based on the complete context.
+- **Enhanced Communication:** The visibility of this tool to end users supports better communication between security teams and other stakeholders, facilitating clearer explanations and more effective incident response.
 
 > **Note:** This toolbelt is designed for **Windows 11** only. A macOS version is coming soon.
 
