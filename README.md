@@ -63,6 +63,11 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
    $totalScripts = $scripts.Count
    $currentScript = 0
 
+   $desktopPath = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('Desktop'), 'Security Operations')
+   if (-Not (Test-Path -Path $desktopPath)) {
+       New-Item -ItemType Directory -Path $desktopPath | Out-Null
+   }
+
    $scripts = @(
        "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Network%20Connection%20Analysis.ps1",
        "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Windows%20Event%20Logs%20Analysis.ps1",
@@ -107,6 +112,9 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
 
    # Final real-time update
    Write-Output "All scripts completed at $(Get-Date)"
+
+   # Open the Security Operations folder on the user's Desktop
+   Start-Process -FilePath $desktopPath
 
 3. **Execution Notes:**
 The script temporarily bypasses the execution policy for the session, allowing the downloaded scripts to run.
