@@ -1,11 +1,11 @@
-# Security Operations Centre (SOC) Toolbelt
+# Security Operations Centre (SOC) Toolbelt Analyser
 
 ## Introduction
 
-Welcome to the SOC Toolbelt, a powerful suite of tools designed specifically to assist in responding to security incidents. This toolbelt is ideal for security analysts who need a high-level view of potential threats, complementing existing Endpoint Detection and Response (EDR) tools like CrowdStrike Falcon.
+Welcome to the SOC Toolbelt Analyser, a powerful suite of tools designed specifically to assist in responding to security incidents. This toolbelt is ideal for security analysts who need a high-level view of potential threats, complementing existing Endpoint Detection and Response (EDR) tools like CrowdStrike Falcon.
 
 ### Advantages Over Traditional EDR Tools:
-- **High-Level View:** The SOC Toolbelt provides a broader perspective, allowing analysts to see the larger picture beyond what standard EDR tools might offer.
+- **High-Level View:** The SOC Toolbelt Analyser provides a broader perspective, allowing analysts to see the larger picture beyond what standard EDR tools might offer.
 - **Empowers Decision-Making:** Rather than automating responses, the toolbelt presents comprehensive data that enables analysts to make informed decisions based on the complete context.
 - **Enhanced Communication:** The visibility of this tool to end users supports better communication between security teams and other stakeholders, facilitating clearer explanations and more effective incident response.
 
@@ -28,15 +28,15 @@ Welcome to the SOC Toolbelt, a powerful suite of tools designed specifically to 
 
 ## Sample Output
 
-Here’s an example of the type of output you can expect from the SOC Toolbelt:
+Here’s an example of the type of output you can expect from the SOC Toolbelt Analyser:
 
-![Sample Output](https://github.com/simon-im-security/SOC-Toolbelt/blob/main/Images/sample.png?raw=true)
+![Sample Output](https://github.com/simon-im-security/SOC-Toolbelt-Analyser/blob/main/Images/sample.png?raw=true)
 
 ---
 
 ## How to Run SOC Tools
 
-To get started with the SOC Toolbelt, follow these steps to download and execute the scripts sequentially.
+To get started with the SOC Toolbelt Analyser, follow these steps to download and execute the scripts sequentially.
 
 1. **Open PowerShell as Administrator:**
    
@@ -54,7 +54,7 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
    Set-ExecutionPolicy Bypass -Scope Process -Force
 
    # Create a temporary directory
-   $tempDir = "$env:TEMP\SOC-Toolbelt"
+   $tempDir = "$env:TEMP\SOC-Toolbelt-Analyser"
 
    # Check if the directory exists; if so, remove it and create a new one
    if (Test-Path -Path $tempDir) {
@@ -65,11 +65,11 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
 
    # Array of script URLs
    $scripts = @(
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Scripts/Windows/Network%20Connection%20Analysis.ps1",
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Scripts/Windows/Windows%20Event%20Logs%20Analysis.ps1",
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Scripts/Windows/User%20Login%20Analysis.ps1",
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Scripts/Windows/Security%20Event%20Log%20Analysis.ps1",
-       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt/main/Scripts/Windows/Process%20Checker%20Analysis.ps1"
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt-Analyser/main/Scripts/Windows/Network%20Connection%20Analysis.ps1",
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt-Analyser/main/Scripts/Windows/Windows%20Event%20Logs%20Analysis.ps1",
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt-Analyser/main/Scripts/Windows/User%20Login%20Analysis.ps1",
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt-Analyser/main/Scripts/Windows/Security%20Event%20Log%20Analysis.ps1",
+       "https://raw.githubusercontent.com/simon-im-security/SOC-Toolbelt-Analyser/main/Scripts/Windows/Process%20Checker%20Analysis.ps1"
    )
 
    # Calculate the total number of scripts
@@ -97,7 +97,7 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
        Invoke-WebRequest -Uri $script -OutFile $scriptPath
 
        # Update the progress bar
-       Write-Progress -Activity "Running SOC Toolbelt Scripts" -Status "Running $scriptName" -PercentComplete (($currentScript / $totalScripts) * 100)
+       Write-Progress -Activity "Running SOC Toolbelt Analyser Scripts" -Status "Running $scriptName" -PercentComplete (($currentScript / $totalScripts) * 100)
 
        # Real-time status update
        Write-Output "Starting $scriptName at $(Get-Date)"
@@ -117,7 +117,7 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
    }
 
    # Complete the progress bar
-   Write-Progress -Activity "Running SOC Toolbelt Scripts" -Status "Completed" -PercentComplete 100 -Completed
+   Write-Progress -Activity "Running SOC Toolbelt Analyser Scripts" -Status "Completed" -PercentComplete 100 -Completed
 
    # Final real-time update
    Write-Output "All scripts completed at $(Get-Date)"
@@ -128,8 +128,9 @@ To get started with the SOC Toolbelt, follow these steps to download and execute
    # Clean up the temporary directory
    Remove-Item -Recurse -Force -Path $tempDir
 
-3. **Output Location::**
-The output generated by these scripts will be saved to a folder named "Security Operations" on the user's Desktop. This folder will contain logs and reports generated by each script.
+3. **Output Location:**
+   The output generated by these scripts will be saved to a folder named "Security Operations" on the user's Desktop. This folder will contain logs and reports generated by each script.
 
 ---
 
+GitHub link: [SOC Toolbelt Analyser](https://github.com/simon-im-security/SOC-Toolbelt-Analyser)
