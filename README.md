@@ -133,4 +133,3 @@ To get started with the SOC Toolbelt Analyser, follow these steps to download an
 
 ---
 
-GitHub link: [SOC Toolbelt Analyser](https://github.com/simon-im-security/SOC-Toolbelt-Analyser)
